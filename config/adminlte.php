@@ -302,8 +302,18 @@ return [
             'icon'  => 'fa fa-users',
         ],
         [
-            'text' => 'User',
-            'url'  => '/uses',
+            'text' => 'Post',
+            'url'  => '/post',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'About',
+            'url'  => '/about',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'Education',
+            'url'  => '/education',
             'icon'  => 'fa fa-users',
         ],
         // [

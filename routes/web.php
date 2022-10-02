@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,10 @@ Route::get('/home', function() {
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
+
+Route::resource('about', 'App\Http\Controllers\AboutController');
+Route::resource('post', 'App\Http\Controllers\PostController');
+Route::resource('education', 'App\Http\Controllers\EducationController');
+
+
+Route::resource('products', ProductController::class);
