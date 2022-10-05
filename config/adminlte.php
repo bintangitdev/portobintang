@@ -316,6 +316,11 @@ return [
             'url'  => '/education',
             'icon'  => 'fa fa-users',
         ],
+        [
+            'text' => 'Skills',
+            'url'  => '/skills',
+            'icon'  => 'fa fa-users',
+        ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,

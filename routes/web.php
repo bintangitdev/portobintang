@@ -36,5 +36,7 @@ Route::resource('about', 'App\Http\Controllers\AboutController');
 Route::resource('post', 'App\Http\Controllers\PostController');
 Route::resource('education', 'App\Http\Controllers\EducationController');
 
+Route::resource('skills', 'App\Http\Controllers\SkillsController');
+
 
 Route::resource('products', ProductController::class);

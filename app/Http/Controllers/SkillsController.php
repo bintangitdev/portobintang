@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\skills;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SkillsController extends Controller
 {
@@ -14,7 +15,8 @@ class SkillsController extends Controller
      */
     public function index()
     {
-        //
+        $skill = skills::orderBy('id', 'desc')->paginate(3);
+        return view('skills.index', ['skill' => $skill]);
     }
 
     /**
@@ -24,7 +26,7 @@ class SkillsController extends Controller
      */
     public function create()
     {
-        //
+        return view('skills.create');
     }
 
     /**
@@ -35,7 +37,29 @@ class SkillsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'jenis' => 'required',
+            'urutan' => 'required',
+            'status' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          ]);
+
+          $imageName = time() . '.' . $request->file->extension();
+          // $request->image->move(public_path('images'), $imageName);
+          $request->file->storeAs('public/images', $imageName);
+
+          $postData = [
+            'nama' => $request->nama,
+            'gambar' => $imageName,
+            'jenis' => $request->jenis,
+            'urutan' => $request->urutan,
+            'status' => $request->status
+        ];
+
+          skills::create($postData);
+          return redirect('/skills')->with(['message' => 'About added successfully!', 'status' => 'success']);
+
     }
 
     /**
@@ -44,9 +68,9 @@ class SkillsController extends Controller
      * @param  \App\Models\skills  $skills
      * @return \Illuminate\Http\Response
      */
-    public function show(skills $skills)
+    public function show(skills $Skills)
     {
-        //
+
     }
 
     /**
@@ -55,9 +79,9 @@ class SkillsController extends Controller
      * @param  \App\Models\skills  $skills
      * @return \Illuminate\Http\Response
      */
-    public function edit(skills $skills)
+    public function edit(skills $Skill)
     {
-        //
+        return view('skills.edit', ['Skill' => $Skill]);
     }
 
     /**
@@ -67,9 +91,32 @@ class SkillsController extends Controller
      * @param  \App\Models\skills  $skills
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, skills $skills)
+    public function update(Request $request, skills $Skill)
     {
-        //
+        $imageName = '';
+        if ($request->hasFile('file')) {
+            $imageName = time() . '.' . $request->file->extension();
+            $request->file->storeAs('public/images', $imageName);
+
+            if ($Skill->gambar) {
+              Storage::delete('public/images/' . $Skill->gambar);
+            }
+          } else {
+            $imageName = $Skill->gambar;
+          }
+
+        $postData = [
+            'nama' => $request->nama,
+            'jenis' => $request->jenis,
+            'urutan' => $request->urutan,
+            'status' => $request->status,
+            'gambar' => $imageName
+
+        ];
+
+        $Skill->update($postData);
+        return redirect('/skills')->with(['message' => 'About updated successfully!', 'status' => 'success']);
+
     }
 
     /**
@@ -78,8 +125,10 @@ class SkillsController extends Controller
      * @param  \App\Models\skills  $skills
      * @return \Illuminate\Http\Response
      */
-    public function destroy(skills $skills)
+    public function destroy(skills $Skill)
     {
-        //
+        Storage::delete('public/images/' . $Skill->gambar);
+        $Skill->delete();
+        return redirect('/skills')->with(['message' => 'Post deleted successfully!', 'status' => 'info']);
     }
 }
