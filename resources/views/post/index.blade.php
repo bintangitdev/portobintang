@@ -6,21 +6,21 @@
 
 @section('content')
 
-<!-- @if(session('message'))
-<div class="alert alert-{{ session('status') }} alert-dismissible fade show" role="alert">
-  <strong>{{ session('message') }}</strong>
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif -->
-<div class="row">
+    <!-- @if (session('message'))
+    <div class="alert alert-{{ session('status') }} alert-dismissible fade show" role="alert">
+      <strong>{{ session('message') }}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif -->
+    <div class="row">
         <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <a href="{{route('post.create')}}" class="btn btn-primary mb-2">
-                            Tambah
-                        </a>
-                        <table class="table table-hover table-bordered table-stripped" id="example2">
-                            <thead>
+            <div class="card">
+                <div class="card-body">
+                    <a href="{{ route('post.create') }}" class="btn btn-primary mb-2">
+                        Tambah
+                    </a>
+                    <table class="table table-hover table-bordered table-stripped" id="example2">
+                        <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Title</th>
@@ -28,33 +28,35 @@
                                 <th>Image</th>
                                 <th>Opsi</th>
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($posts as $key => $row)
+                        </thead>
+                        <tbody>
+                            @foreach ($posts as $key => $row)
                                 <tr>
-                                    <td>{{$key+1}}</td>
-                                    <td>{{$row->title}}</td>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $row->title }}</td>
                                     <td>{{ $row->category }}</td>
                                     <td><a href="post/{{ $row->id }}">
-                                        <img src="{{ asset('storage/images/'.$row->image) }}" width="50" height="60">
+                                            <img src="{{ asset('storage/images/' . $row->image) }}" width="50"
+                                                height="60">
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{route('post.edit', $row)}}" class="btn btn-primary btn-xs">
+                                        <a href="{{ route('post.edit', $row) }}" class="btn btn-primary btn-xs">
                                             Edit
                                         </a>
-                                        <a href="{{route('post.destroy', $row)}}" onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
+                                        <a href="{{ route('post.destroy', $row) }}"
+                                            onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                             Delete
                                         </a>
                                     </td>
                                 </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-</div>
+        </div>
+    </div>
 
 @stop
 @push('js')
@@ -66,6 +68,7 @@
         $('#example2').DataTable({
             "responsive": true,
         });
+
         function notificationBeforeDelete(event, el) {
             event.preventDefault();
             if (confirm('Apakah anda yakin akan menghapus data ? ')) {

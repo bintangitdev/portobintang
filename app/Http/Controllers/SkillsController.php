@@ -43,13 +43,13 @@ class SkillsController extends Controller
             'urutan' => 'required',
             'status' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-          ]);
+        ]);
 
-          $imageName = time() . '.' . $request->file->extension();
-          // $request->image->move(public_path('images'), $imageName);
-          $request->file->storeAs('public/images', $imageName);
+        $imageName = time() . '.' . $request->file->extension();
+        // $request->image->move(public_path('images'), $imageName);
+        $request->file->storeAs('public/images', $imageName);
 
-          $postData = [
+        $postData = [
             'nama' => $request->nama,
             'gambar' => $imageName,
             'jenis' => $request->jenis,
@@ -57,9 +57,8 @@ class SkillsController extends Controller
             'status' => $request->status
         ];
 
-          skills::create($postData);
-          return redirect('/skills')->with(['message' => 'About added successfully!', 'status' => 'success']);
-
+        skills::create($postData);
+        return redirect('/skills')->with(['message' => 'About added successfully!', 'status' => 'success']);
     }
 
     /**
@@ -70,7 +69,6 @@ class SkillsController extends Controller
      */
     public function show(skills $Skills)
     {
-
     }
 
     /**
@@ -99,11 +97,11 @@ class SkillsController extends Controller
             $request->file->storeAs('public/images', $imageName);
 
             if ($Skill->gambar) {
-              Storage::delete('public/images/' . $Skill->gambar);
+                Storage::delete('public/images/' . $Skill->gambar);
             }
-          } else {
+        } else {
             $imageName = $Skill->gambar;
-          }
+        }
 
         $postData = [
             'nama' => $request->nama,
@@ -116,7 +114,6 @@ class SkillsController extends Controller
 
         $Skill->update($postData);
         return redirect('/skills')->with(['message' => 'About updated successfully!', 'status' => 'success']);
-
     }
 
     /**

@@ -296,16 +296,19 @@ return [
             'text'         => 'search',
             'topnav_right' => true,
         ],
+
         [
             'text' => 'User',
             'url'  => '/users',
             'icon'  => 'fa fa-users',
         ],
+
         [
             'text' => 'Post',
             'url'  => '/post',
             'icon'  => 'fa fa-users',
         ],
+
         [
             'text' => 'About',
             'url'  => '/about',

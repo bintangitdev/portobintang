@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class skills extends Model
 {
     use HasFactory;
-    protected $fillable = ['nama', 'gambar', 'jenis', 'urutan','status'];
+    protected $fillable = ['nama', 'gambar', 'jenis', 'urutan', 'status'];
 }

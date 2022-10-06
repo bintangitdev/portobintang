@@ -25,7 +25,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-Route::get('/home', function() {
+Route::get('/home', function () {
     return view('home');
 })->name('home')->middleware('auth');
 
@@ -35,8 +35,8 @@ Route::resource('users', \App\Http\Controllers\UserController::class)
 Route::resource('about', 'App\Http\Controllers\AboutController');
 Route::resource('post', 'App\Http\Controllers\PostController');
 Route::resource('education', 'App\Http\Controllers\EducationController');
-
-Route::resource('skills', 'App\Http\Controllers\SkillsController');
+Route::resource('experience', 'App\Http\Controllers\ExperienceController');
+Route::resource('socialmedia', 'App\Http\Controllers\SocialmediaController');
 
 
 Route::resource('products', ProductController::class);

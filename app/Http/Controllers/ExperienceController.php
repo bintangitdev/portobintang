@@ -14,7 +14,8 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        //
+        $Exp = experience::orderBy('id', 'desc')->paginate(3);
+        return view('experience.index', ['experience' => $Exp]);
     }
 
     /**
@@ -24,7 +25,7 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        //
+        return view('experience.create');
     }
 
     /**
@@ -35,7 +36,30 @@ class ExperienceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'profesi' => 'required',
+            'perusahaan' => 'required',
+            'mulai' => 'required',
+            'selesai' => 'required',
+            'jenis' => 'required',
+            'urutan' => 'required',
+            'status' => 'required',
+            'deskripsi' => 'required|min:50',
+        ]);
+
+        $postData = [
+            'profesi' => $request->profesi,
+            'perusahaan' => $request->perusahaan,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
+            'jenis' => $request->jenis,
+            'urutan' => $request->urutan,
+            'status' => $request->status,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        experience::create($postData);
+        return redirect('/experience')->with(['message' => 'experience added successfully!', 'status' => 'success']);
     }
 
     /**
@@ -55,9 +79,9 @@ class ExperienceController extends Controller
      * @param  \App\Models\experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function edit(experience $experience)
+    public function edit(experience $Experience)
     {
-        //
+        return view('experience.edit', ['experience' => $Experience]);
     }
 
     /**
@@ -67,9 +91,21 @@ class ExperienceController extends Controller
      * @param  \App\Models\experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, experience $experience)
+    public function update(Request $request, experience $Experience)
     {
-        //
+        $postData = [
+            'profesi' => $request->profesi,
+            'perusahaan' => $request->perusahaan,
+            'mulai' => $request->mulai,
+            'selesai' => $request->selesai,
+            'jenis' => $request->jenis,
+            'urutan' => $request->urutan,
+            'status' => $request->status,
+            'deskripsi' => $request->deskripsi,
+        ];
+
+        $Experience->update($postData);
+        return redirect('/experience')->with(['message' => 'education updated successfully!', 'status' => 'success']);
     }
 
     /**
@@ -78,8 +114,9 @@ class ExperienceController extends Controller
      * @param  \App\Models\experience  $experience
      * @return \Illuminate\Http\Response
      */
-    public function destroy(experience $experience)
+    public function destroy(experience $Experience)
     {
-        //
+        $Experience->delete();
+        return redirect('/experience')->with(['message' => 'Post deleted successfully!', 'status' => 'info']);
     }
 }
