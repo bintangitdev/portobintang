@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProductController;
->>>>>>> eeda7eb (Update CRUD)
 
 /*
 |--------------------------------------------------------------------------
@@ -28,18 +25,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Auth::routes();
 
-<<<<<<< HEAD
-Route::get('/home', function() {
-=======
 Route::get('/home', function () {
->>>>>>> eeda7eb (Update CRUD)
     return view('home');
 })->name('home')->middleware('auth');
 
 Route::resource('users', \App\Http\Controllers\UserController::class)
     ->middleware('auth');
-<<<<<<< HEAD
-=======
 
 Route::resource('about', 'App\Http\Controllers\AboutController');
 Route::resource('post', 'App\Http\Controllers\PostController');
@@ -49,4 +40,3 @@ Route::resource('socialmedia', 'App\Http\Controllers\SocialmediaController');
 
 
 Route::resource('products', ProductController::class);
->>>>>>> eeda7eb (Update CRUD)
