@@ -329,6 +329,11 @@ return [
             'url'  => '/socialmedia',
             'icon'  => 'fa fa-users',
         ],
+        [
+            'text' => 'Experience',
+            'url'  => '/experience',
+            'icon'  => 'fa fa-users',
+        ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,

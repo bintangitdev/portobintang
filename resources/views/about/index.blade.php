@@ -8,9 +8,9 @@
 
     <!-- @if (session('message'))
     <div class="alert alert-{{ session('status') }} alert-dismissible fade show" role="alert">
-      <strong>{{ session('message') }}</strong>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+                      <strong>{{ session('message') }}</strong>
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
     @endif -->
     <div class="row">
         <div class="col-12">
@@ -36,7 +36,7 @@
                                     <td>{{ $a->nama }}</td>
                                     <td>{{ $a->alamat }}</td>
                                     <td><a href="about/{{ $a->id }}">
-                                            <img src="{{ asset('storage/images/' . $a->gambar) }}" width="50"
+                                            <img src="{{ asset('storage\app\public\images' . $a->gambar) }}" width="50"
                                                 height="60">
                                         </a>
                                     </td>
