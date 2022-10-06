@@ -38,6 +38,8 @@ Route::resource('education', 'App\Http\Controllers\EducationController');
 Route::resource('experience', 'App\Http\Controllers\ExperienceController');
 Route::resource('socialmedia', 'App\Http\Controllers\SocialmediaController');
 Route::resource('skills', 'App\Http\Controllers\SkillsController');
+Route::resource('portofolio', 'App\Http\Controllers\PortofolioController');
+Route::resource('profession', 'App\Http\Controllers\ProfessionController');
 
 
 Route::resource('products', ProductController::class);

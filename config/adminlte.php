@@ -334,6 +334,16 @@ return [
             'url'  => '/experience',
             'icon'  => 'fa fa-users',
         ],
+        [
+            'text' => 'Portofolio',
+            'url'  => '/portofolio',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'Profesi',
+            'url'  => '/profession',
+            'icon'  => 'fa fa-users',
+        ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,

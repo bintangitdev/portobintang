@@ -15,7 +15,7 @@ class SkillsController extends Controller
      */
     public function index()
     {
-        $skill = skills::orderBy('id', 'desc')->paginate(3);
+        $skill = skills::orderBy('id', 'desc')->paginate(20);
         return view('skills.index', ['skill' => $skill]);
     }
 

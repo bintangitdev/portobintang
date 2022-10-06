@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <a href="{{ route('about.create') }}" class="btn btn-primary mb-2">
+                    <a href="{{ route('portofolio.create') }}" class="btn btn-primary mb-2">
                         Tambah
                     </a>
                     <table class="table table-hover table-bordered table-stripped" id="example2">
@@ -24,27 +24,27 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Nama</th>
-                                <th>Alamat</th>
+                                <th>Link</th>
                                 <th>Image</th>
                                 <th>Opsi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($abouts as $key => $a)
+                            @foreach ($portofolio as $key => $a)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $a->nama }}</td>
-                                    <td>{{ $a->alamat }}</td>
-                                    <td><a href="about/{{ $a->id }}">
+                                    <td>{{ $a->link }}</td>
+                                    <td><a href="portofolio/{{ $a->id }}">
                                             <img src="{{ asset('storage/images/' . $a->gambar) }}" width="50"
                                                 height="60">
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{{ route('about.edit', $a) }}" class="btn btn-primary btn-xs">
+                                        <a href="{{ route('portofolio.edit', $a) }}" class="btn btn-primary btn-xs">
                                             Edit
                                         </a>
-                                        <a href="{{ route('about.destroy', $a) }}"
+                                        <a href="{{ route('portofolio.destroy', $a) }}"
                                             onclick="notificationBeforeDelete(event, this)" class="btn btn-danger btn-xs">
                                             Delete
                                         </a>

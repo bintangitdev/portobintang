@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\portofolio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PortofolioController extends Controller
 {
@@ -14,7 +15,8 @@ class PortofolioController extends Controller
      */
     public function index()
     {
-        //
+        $portofolio = portofolio::orderBy('id', 'desc')->paginate(3);
+        return view('portofolio.index', ['portofolio' => $portofolio]);
     }
 
     /**
@@ -24,7 +26,7 @@ class PortofolioController extends Controller
      */
     public function create()
     {
-        //
+        return view('portofolio.create');
     }
 
     /**
@@ -35,7 +37,30 @@ class PortofolioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'link' => 'required',
+            'status' => 'required',
+            'urutan' => 'required',
+            'deskripsi' => 'required|min:50',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+          ]);
+
+          $imageName = time() . '.' . $request->file->extension();
+          // $request->image->move(public_path('images'), $imageName);
+          $request->file->storeAs('public/images', $imageName);
+
+          $postData = [
+            'nama' => $request->nama,
+            'link' => $request->link,
+            'status' => $request->status,
+            'urutan' => $request->urutan,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $imageName
+          ];
+
+          portofolio::create($postData);
+          return redirect('/portofolio')->with(['message' => 'portofolio added successfully!', 'status' => 'success']);
     }
 
     /**
@@ -55,9 +80,9 @@ class PortofolioController extends Controller
      * @param  \App\Models\portofolio  $portofolio
      * @return \Illuminate\Http\Response
      */
-    public function edit(portofolio $portofolio)
+    public function edit(Portofolio $Portofolio)
     {
-        //
+        return view('portofolio.edit', ['Portofolio' => $Portofolio]);
     }
 
     /**
@@ -67,9 +92,31 @@ class PortofolioController extends Controller
      * @param  \App\Models\portofolio  $portofolio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, portofolio $portofolio)
+    public function update(Request $request, Portofolio $Portofolio)
     {
-        //
+        $imageName = '';
+        if ($request->hasFile('file')) {
+          $imageName = time() . '.' . $request->file->extension();
+          $request->file->storeAs('public/images', $imageName);
+
+          if ($Portofolio->gambar) {
+            Storage::delete('public/images/' . $Portofolio->gambar);
+          }
+        } else {
+          $imageName = $Portofolio->gambar;
+        }
+
+        $postData = [
+            'nama' => $request->nama,
+            'link' => $request->link,
+            'status' => $request->status,
+            'urutan' => $request->urutan,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $imageName
+        ];
+
+        $Portofolio->update($postData);
+        return redirect('/portofolio')->with(['message' => 'About updated successfully!', 'status' => 'success']);
     }
 
     /**
@@ -78,8 +125,10 @@ class PortofolioController extends Controller
      * @param  \App\Models\portofolio  $portofolio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(portofolio $portofolio)
+    public function destroy(Portofolio $Portofolio)
     {
-        //
+        Storage::delete('public/images/' . $Portofolio->gambar);
+        $Portofolio->delete();
+        return redirect('/portofolio')->with(['message' => 'Post deleted successfully!', 'status' => 'info']);
     }
 }
