@@ -324,6 +324,11 @@ return [
             'url'  => '/skills',
             'icon'  => 'fa fa-users',
         ],
+        [
+            'text' => 'Social Media',
+            'url'  => '/socialmedia',
+            'icon'  => 'fa fa-users',
+        ],
         // [
         //     'type'         => 'fullscreen-widget',
         //     'topnav_right' => true,
