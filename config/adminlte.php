@@ -302,8 +302,33 @@ return [
             'icon'  => 'fa fa-users',
         ],
         [
+<<<<<<< HEAD
             'text' => 'User',
             'url'  => '/uses',
+=======
+            'text' => 'Post',
+            'url'  => '/post',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'About',
+            'url'  => '/about',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'Education',
+            'url'  => '/education',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'Experience',
+            'url'  => '/experience',
+            'icon'  => 'fa fa-users',
+        ],
+        [
+            'text' => 'Social Media',
+            'url'  => '/socialmedia',
+>>>>>>> eeda7eb (Update CRUD)
             'icon'  => 'fa fa-users',
         ],
         // [
