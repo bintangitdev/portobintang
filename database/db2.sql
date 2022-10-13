@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `portofolios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table portofolio.portofolios: ~2 rows (approximately)
+-- Dumping data for table portofolio.portofolios: ~4 rows (approximately)
 DELETE FROM `portofolios`;
 /*!40000 ALTER TABLE `portofolios` DISABLE KEYS */;
 INSERT INTO `portofolios` (`id`, `nama`, `gambar`, `link`, `deskripsi`, `status`, `urutan`, `created_at`, `updated_at`) VALUES
