@@ -36,7 +36,7 @@
                                     <td>{{ $a->nama }}</td>
                                     <td>{{ $a->alamat }}</td>
                                     <td><a href="about/{{ $a->id }}">
-                                            <img src="{{ asset('storage/images/' . $a->gambar) }}" width="50"
+                                            <img src="{{ url('images/skills/' . $a->gambar) }}" width="50"
                                                 height="60">
                                         </a>
                                     </td>

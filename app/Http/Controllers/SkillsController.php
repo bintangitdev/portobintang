@@ -37,29 +37,41 @@ class SkillsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'jenis' => 'required',
-            'urutan' => 'required',
-            'status' => 'required',
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $imageName = time() . '.' . $request->file->extension();
-        // $request->image->move(public_path('images'), $imageName);
-        $request->file->storeAs('public/images', $imageName);
-
+        if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $file_name = $file->getClientOriginalName();
+        $file_name = preg_replace('!\s+!', ' ', $file_name);
+        $file_name = str_replace(' ', '_', $file_name);
+        $file_name = str_replace('%', '', $file_name);
+        $file->move('images/skills/', $file_name);
+        //$file->move(public_path($this->url_photo), $file_name);
         $postData = [
-            'nama' => $request->nama,
-            'gambar' => $imageName,
-            'jenis' => $request->jenis,
-            'urutan' => $request->urutan,
-            'status' => $request->status
+            'jenis' => $request->input('jenis'),
+            'nama' => $request->input('nama'),
+            'urutan' => $request->input('urutan'),
+            'status' => $request->input('status'),
+            'gambar' =>  $file_name
         ];
 
+
+
+        // Photo::create([
+        //     'nama' => $request->nama,
+        //     'file' => $file_name,
+        // ]);
+
+        // $imageName = time() . '.' . $request->file->extension();
+        // // $request->image->move(public_path('images'), $imageName);
+        // $request->file->storeAs(asset('images'), $imageName);
+
+        //$postData = ['nama' => $request->nama, 'username' => $request->username, 'link' => $request->link, 'status' => $request->status, 'urutan' => $request->urutan, 'icon' => $imageName];
+
         skills::create($postData);
-        return redirect('/skills')->with(['message' => 'About added successfully!', 'status' => 'success']);
+        return redirect('/skills')->with(['message' => 'socialmedia added successfully!', 'status' => 'success']);
+    } else {
+        return redirect()->route('/skills')->with('danger', 'Mohon masukkan foto!');
     }
+}
 
     /**
      * Display the specified resource.
@@ -91,29 +103,35 @@ class SkillsController extends Controller
      */
     public function update(Request $request, skills $Skill)
     {
-        $imageName = '';
-        if ($request->hasFile('file')) {
-            $imageName = time() . '.' . $request->file->extension();
-            $request->file->storeAs('public/images', $imageName);
+        $this->validate($request, [
+            'nama' => 'required',
+            'jenis' => 'required',
+            'urutan' => 'required',
+            'status' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
 
-            if ($Skill->gambar) {
-                Storage::delete('public/images/' . $Skill->gambar);
-            }
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $file_name = $file->getClientOriginalName();
+            $file_name = preg_replace('!\s+!', ' ', $file_name);
+            $file_name = str_replace(' ', '_', $file_name);
+            $file_name = str_replace('%', '', $file_name);
+            $file->move('images/skills/', $file_name);
         } else {
-            $imageName = $Skill->gambar;
+            $file_name = $Skill->gambar;
         }
 
         $postData = [
-            'nama' => $request->nama,
-            'jenis' => $request->jenis,
-            'urutan' => $request->urutan,
-            'status' => $request->status,
-            'gambar' => $imageName
-
+            'jenis' => $request->input('jenis'),
+            'nama' => $request->input('nama'),
+            'urutan' => $request->input('urutan'),
+            'status' => $request->input('status'),
+            'gambar' =>  $file_name
         ];
 
         $Skill->update($postData);
-        return redirect('/skills')->with(['message' => 'About updated successfully!', 'status' => 'success']);
+        return redirect()->route('/skills')->with('success', 'Social Media berhasil diupdate!');
     }
 
     /**

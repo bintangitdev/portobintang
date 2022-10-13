@@ -49,6 +49,16 @@
                         </div>
 
                         <div class="form-group">
+                            <input type="text" name="status" id="status" class="form-control" placeholder="status"
+                                value="{{ $about->status }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" name="gelar" id="gelar" class="form-control" placeholder="gelar"
+                                value="{{ $about->gelar }}" required>
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
 

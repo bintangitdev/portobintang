@@ -43,13 +43,19 @@ class AboutController extends Controller
       'email' => 'required|email',
       'telp' => 'required',
       'urutan' => 'required',
+      'status' => 'required',
+      'gelar' => 'required',
       'deskripsi' => 'required|min:50',
       'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
     ]);
 
-    $imageName = time() . '.' . $request->file->extension();
-    // $request->image->move(public_path('images'), $imageName);
-    $request->file->storeAs('public/images', $imageName);
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $file_name = $file->getClientOriginalName();
+        $file_name = preg_replace('!\s+!', ' ', $file_name);
+        $file_name = str_replace(' ', '_', $file_name);
+        $file_name = str_replace('%', '', $file_name);
+        $file->move('images/skills/', $file_name);
 
     $postData = [
       'nama' => $request->nama,
@@ -57,12 +63,16 @@ class AboutController extends Controller
       'email' => $request->email,
       'telp' => $request->telp,
       'urutan' => $request->urutan,
+      'status' => $request->status,
+      'gelar' => $request->gelar,
       'deskripsi' => $request->deskripsi,
-      'gambar' => $imageName
+      'gambar' => $file_name
     ];
-
     About::create($postData);
-    return redirect('/about')->with(['message' => 'About added successfully!', 'status' => 'success']);
+        return redirect('/about')->with(['message' => 'socialmedia added successfully!', 'status' => 'success']);
+    } else {
+        return redirect()->route('/about')->with('danger', 'Mohon masukkan foto!');
+    }
   }
 
   /**
@@ -96,25 +106,30 @@ class AboutController extends Controller
    */
   public function update(Request $request, About $About)
   {
-    $imageName = '';
     if ($request->hasFile('file')) {
-      $imageName = time() . '.' . $request->file->extension();
-      $request->file->storeAs('public/images', $imageName);
+        $file = $request->file('file');
+        $file_name = $file->getClientOriginalName();
+        $file_name = preg_replace('!\s+!', ' ', $file_name);
+        $file_name = str_replace(' ', '_', $file_name);
+        $file_name = str_replace('%', '', $file_name);
+        $file->move('images/skills/', $file_name);
 
       if ($About->gambar) {
-        Storage::delete('public/images/' . $About->gambar);
+        Storage::delete('images/skills/' . $About->gambar);
       }
     } else {
-      $imageName = $About->gambar;
+      $file_name = $About->gambar;
     }
 
     $postData = [
       'nama' => $request->nama,
       'alamat' => $request->alamat,
-      'gambar' => $imageName,
+      'gambar' => $file_name,
       'deskripsi' => $request->deskripsi,
       'email' => $request->email,
       'telp' => $request->telp,
+      'gelar' => $request->gelar,
+      'status' => $request->status,
       'urutan' => $request->urutan
 
     ];

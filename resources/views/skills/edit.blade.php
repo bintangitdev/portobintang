@@ -24,7 +24,7 @@
             <input type="file" name="file" id="file" accept="image/*" class="form-control">
           </div>
 
-          <img src="{{ asset('storage/images/'.$Skill->gambar) }}" class="img-fluid img-thumbnail" width="150">
+          <img src="{{ url('images/skills/' . $Skill->gambar) }}" class="img-fluid img-thumbnail" width="150">
 
           <div class="form-group">
             <input type="text" name="urutan" id="urutan" class="form-control" placeholder="urutan" value="{{ $Skill->urutan }}" required>

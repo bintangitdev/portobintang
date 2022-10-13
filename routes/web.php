@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +44,5 @@ Route::resource('profession', 'App\Http\Controllers\ProfessionController');
 
 
 Route::resource('products', ProductController::class);
+Route::get('/index', 'App\Http\Controllers\IndexController@index');
+

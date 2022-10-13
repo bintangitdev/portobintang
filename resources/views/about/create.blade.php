@@ -47,6 +47,20 @@
           </div>
 
           <div class="form-group">
+            <input type="text" name="status" id="status" class="form-control @error('status') is-invalid @enderror" placeholder="status" value="{{ old('status') }}">
+            @error('status')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="form-group">
+            <input type="text" name="gelar" id="gelar" class="form-control @error('gelar') is-invalid @enderror" placeholder="gelar" value="{{ old('gelar') }}">
+            @error('gelar')
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="form-group">
             <input type="file" name="file" id="file" accept="image/*" class="form-control @error('file') is-invalid @enderror">
             @error('file')
               <div class="invalid-feedback">{{ $message }}</div>
