@@ -192,15 +192,15 @@
             @foreach($portofolio as $data)
             <div class="col-lg-3 col-md-6 portfolio-item">
               <div class="portfolio-wrap">
-                <img src="{{ asset('images/portofolio/'. $data['gambar'] ) }}" class="img-fluid" alt="">
+                <img src="{{ asset('images/skills/'. $data['gambar'] ) }}" class="img-fluid" alt="">
                 <div class="portfolio-info">
                   <h5>{{ $data['nama'] }}</h5>
                   <!-- <p>Portofolio versi 1</p> -->
                   <div class="portfolio-links">
-                    <a href="{{ asset('images/portofolio/'. $data['gambar'] ) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $data['deskripsi'] }}"><i class="bx bx-show"></i></a>
-                    @if($data['link'])
+                    <a href="{{ asset('images/skills/'. $data['gambar'] ) }}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{ $data['deskripsi'] }}"><i class="bx bx-show"></i></a>
+                    {{-- @if($data['link'])
                     <a href="{{ $data['link'] }}" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><i class="bx bx-link"></i></a>
-                    @endif
+                    @endif --}}
                   </div>
                 </div>
               </div>

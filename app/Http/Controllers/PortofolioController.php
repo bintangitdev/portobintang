@@ -46,9 +46,13 @@ class PortofolioController extends Controller
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
           ]);
 
-          $imageName = time() . '.' . $request->file->extension();
-          // $request->image->move(public_path('images'), $imageName);
-          $request->file->storeAs('public/images', $imageName);
+          if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $file_name = $file->getClientOriginalName();
+            $file_name = preg_replace('!\s+!', ' ', $file_name);
+            $file_name = str_replace(' ', '_', $file_name);
+            $file_name = str_replace('%', '', $file_name);
+            $file->move('images/skills/', $file_name);
 
           $postData = [
             'nama' => $request->nama,
@@ -56,11 +60,13 @@ class PortofolioController extends Controller
             'status' => $request->status,
             'urutan' => $request->urutan,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $imageName
+            'gambar' => $file_name
           ];
-
           portofolio::create($postData);
-          return redirect('/portofolio')->with(['message' => 'portofolio added successfully!', 'status' => 'success']);
+          return redirect('/portofolio')->with(['message' => 'socialmedia added successfully!', 'status' => 'success']);
+      } else {
+          return redirect()->route('/portofolio')->with('danger', 'Mohon masukkan foto!');
+      }
     }
 
     /**
@@ -94,16 +100,19 @@ class PortofolioController extends Controller
      */
     public function update(Request $request, Portofolio $Portofolio)
     {
-        $imageName = '';
         if ($request->hasFile('file')) {
-          $imageName = time() . '.' . $request->file->extension();
-          $request->file->storeAs('public/images', $imageName);
+            $file = $request->file('file');
+            $file_name = $file->getClientOriginalName();
+            $file_name = preg_replace('!\s+!', ' ', $file_name);
+            $file_name = str_replace(' ', '_', $file_name);
+            $file_name = str_replace('%', '', $file_name);
+            $file->move('images/skills/', $file_name);
 
           if ($Portofolio->gambar) {
-            Storage::delete('public/images/' . $Portofolio->gambar);
+            Storage::delete('images/skills/' . $Portofolio->gambar);
           }
         } else {
-          $imageName = $Portofolio->gambar;
+          $file_name = $Portofolio->gambar;
         }
 
         $postData = [
@@ -112,7 +121,7 @@ class PortofolioController extends Controller
             'status' => $request->status,
             'urutan' => $request->urutan,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $imageName
+            'gambar' => $file_name
         ];
 
         $Portofolio->update($postData);
